@@ -1,0 +1,44 @@
+name: API Testing Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '00 22 * * *'     # 6 PM EST
+    - cron: '00 14 * * 1-5'   # 10 AM EST Monday to Friday
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Install Node and NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Newman and HTML Extra Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      - name: Run the Postman Collection
+        run: |
+          mkdir -p newman
+          newman run collectionCSV.json \
+            -e env.json \
+            -d data.csv \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export newman/report.html
+
+      - name: Upload Newman Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-report
+          path: newman/report.html
