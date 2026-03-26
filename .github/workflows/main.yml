@@ -33,3 +33,9 @@ jobs:
             -e env.json \
             -d data.csv \
             -r cli,htmlextra
+
+      - name: Newman Report
+        uses: actions/upload-artifact@v3.2.2
+        with:
+          name: Newman Report
+          path: newman/*.html
