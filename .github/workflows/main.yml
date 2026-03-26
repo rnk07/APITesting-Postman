@@ -29,13 +29,15 @@ jobs:
 
       - name: Run the Postman Collection
         run: |
+          mkdir -p newman
           newman run collectionCSV.json \
             -e env.json \
             -d data.csv \
-            -r cli,htmlextra
+            -r cli,htmlextra \
+            --reporter-htmlextra-export newman/report.html
 
-      - name: Newman Report
-        uses: actions/upload-artifact@v3.2.2
+      - name: Upload Newman Report
+        uses: actions/upload-artifact@v4
         with:
-          name: Newman Report
-          path: newman/*.html
+          name: newman-report
+          path: newman/report.html
