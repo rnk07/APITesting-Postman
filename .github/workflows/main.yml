@@ -34,7 +34,7 @@ jobs:
             -e env.json \
             -d data.csv \
             -r cli,htmlextra \
-            --reporter-htmlextra-export newman/report.html
+            --reporter-htmlextra-export newman/index.html
 
       - name: Upload Newman Report
         if: always()
@@ -42,3 +42,12 @@ jobs:
         with:
           name: newman-report
           path: newman/report.html
+
+
+      - name: Creating github page branch
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: newman/
+        
