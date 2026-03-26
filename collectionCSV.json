@@ -1477,27 +1477,7 @@
           "listen": "test",
           "script": {
             "exec": [
-              "//Generating Random IMEI Nuber\r",
-              "var randomNum =Math.random();\r",
-              "var imeiNumber =Math.floor(randomNum*10000000000000+10000000000000);\r",
               "\r",
-              "pm.collectionVariables.set(\"IMEI_Number\", imeiNumber);\r",
-              "\r",
-              "//Fetching JOb Number\r",
-              "var responseBody = pm.response.json();\r",
-              "\r",
-              "pm.collectionVariables.set(\"Job_Id\", responseBody.data.id);\r",
-              "\r",
-              "pm.collectionVariables.set(\"Job_Number\", responseBody.data.job_number);\r",
-              "\r",
-              "console.log(pm.collectionVariables.get(\"Job_Number\"));\r",
-              "\r",
-              "\r",
-              "//Generating Random IMEI Nuber\r",
-              "var randomNum =Math.random();\r",
-              "var imeiNumber =Math.floor(randomNum*10000000000000+10000000000000);\r",
-              "\r",
-              "pm.collectionVariables.set(\"IMEI_Number\", imeiNumber);\r",
               "\r",
               "//Fetching JOb Number\r",
               "var responseBody = pm.response.json();\r",
@@ -1627,6 +1607,22 @@
               "\r",
               "\r",
               "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//Generating Random IMEI Nuber\r",
+              "var randomNum =Math.random();\r",
+              "var imeiNumber =Math.floor(randomNum*10000000000000+10000000000000);\r",
+              "\r",
+              "pm.collectionVariables.set(\"IMEI_Number\", imeiNumber);\r",
               ""
             ],
             "type": "text/javascript",
